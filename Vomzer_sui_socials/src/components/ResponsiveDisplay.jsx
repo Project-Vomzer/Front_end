@@ -21,28 +21,28 @@ const ResponsiveDisplay = ({img}) => {
                             <img className='w-5' src={assets.home} alt="" />
                         </div>
                         <div className='flex gap-5'>
-                            <Link to="/" ><li>Home</li></Link>
-                            <img className='w-5' src={assets.home} alt="" />
+                            <Link to="/" ><li>feeds</li></Link>
+                            <img className='w-5' src={assets.feeds} alt="" />
+                        </div>
+                        <div className='flex gap-2'>
+                            <Link to="/" ><li>notification</li></Link>
+                            <img className='w-5' src={assets.notification} alt="" />
                         </div>
                         <div className='flex gap-5'>
-                            <Link to="/" ><li>Home</li></Link>
-                            <img className='w-5' src={assets.home} alt="" />
+                            <Link to="/" ><li>messages</li></Link>
+                            <img className='w-5' src={assets.chatmessages} alt="" />
                         </div>
                         <div className='flex gap-5'>
-                            <Link to="/" ><li>Home</li></Link>
-                            <img className='w-5' src={assets.home} alt="" />
+                            <Link to="/" ><li>wallet</li></Link>
+                            <img className='w-5' src={assets.wallet} alt="" />
                         </div>
                         <div className='flex gap-5'>
-                            <Link to="/" ><li>Home</li></Link>
-                            <img className='w-5' src={assets.home} alt="" />
+                            <Link to="/" ><li>services</li></Link>
+                            <img className='w-5' src={assets.services} alt="" />
                         </div>
                         <div className='flex gap-5'>
-                            <Link to="/" ><li>Home</li></Link>
-                            <img className='w-5' src={assets.home} alt="" />
-                        </div>
-                        <div className='flex gap-5'>
-                            <Link to="/" ><li>Home</li></Link>
-                            <img className='w-5' src={assets.home} alt="" />
+                            <Link to="/" ><li>menu</li></Link>
+                            <img className='w-5' src={assets.Dots} alt="" />
                         </div>
                     </ul>
                 </div>
