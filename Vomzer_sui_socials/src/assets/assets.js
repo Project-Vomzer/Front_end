@@ -1,4 +1,5 @@
 import background from "./background.png"
+import Vomzer from "./Vector 8.png"
 import chatmessages from "./chatmessages.png"
 import Dots from "./Dots.png"
 import feeds from "./feeds.png"
@@ -19,5 +20,6 @@ export const assets = {
     home,
     notification,
     services,
-    wallet
+    wallet,
+    Vomzer
 }
