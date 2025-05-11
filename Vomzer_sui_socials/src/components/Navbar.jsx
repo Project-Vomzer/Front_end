@@ -1,5 +1,6 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import ResponsiveNavbar from './ResponsiveNavbar'
 
 const Navbar = () => {
   return (
@@ -16,6 +17,7 @@ const Navbar = () => {
             <img className='w-7 cursor-pointer' src={assets.Dots} alt="" />
             <img className='w-7 cursor-pointer' src="" alt="" />
         </div>
+        <ResponsiveNavbar/>
     </div>
   )
 }
