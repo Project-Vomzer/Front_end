@@ -14,7 +14,7 @@ const ResponsiveDisplay = ({img}) => {
             exit={{ opacity:0, y: -100 }}
             transition={{duration: 0.3}}
             >
-                <div className='bg-gradient-to-r from-blue-400 to-teal-400 text-white text-sm font-semibold uppercase py-10 m-6 rounded-3xl md:hidden'>
+                <div className='bg-gradient-to-r from-blue-400 to-teal-400  text-white text-sm font-semibold uppercase py-10 mt-10 rounded-3xl md:hidden'>
                     <ul className='flex flex-col items-center justify-center  gap-7'>
                         <div className='flex gap-5'>
                             <Link to="/" ><li>Home</li></Link>
