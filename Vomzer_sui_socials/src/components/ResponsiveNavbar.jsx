@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
+import ResponsiveDisplay from './ResponsiveDisplay'
 
 const ResponsiveNavbar = () => {
 
@@ -12,6 +13,7 @@ const ResponsiveNavbar = () => {
         <img className='w-7' onClick={()=> setImg(!img)} src={img ? assets.cancel : assets.menu} alt="" />
         <img className='w-10' src={assets.Vomzer} alt="" />
       </div>
+      <ResponsiveDisplay img={img}/>
     </div>
   )
 }
