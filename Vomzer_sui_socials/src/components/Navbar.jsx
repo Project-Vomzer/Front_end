@@ -15,7 +15,6 @@ const Navbar = () => {
             <img className='w-7 cursor-pointer' src={assets.wallet} alt="" />
             <img className='w-7 cursor-pointer' src={assets.services} alt="" />
             <img className='w-7 cursor-pointer' src={assets.Dots} alt="" />
-            <img className='w-7 cursor-pointer' src="" alt="" />
         </div>
         <ResponsiveNavbar/>
     </div>
