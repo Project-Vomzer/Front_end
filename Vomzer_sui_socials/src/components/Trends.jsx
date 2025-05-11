@@ -2,8 +2,8 @@ import React from 'react'
 
 const Trends = () => {
   return (
-    <div>
-      <div className='bg-white h-10 rounded w-[30%]'>
+    <div className='bg-white h-10 rounded w-full md:w-[30%]'>
+      <div >
         
       </div>
     </div>
