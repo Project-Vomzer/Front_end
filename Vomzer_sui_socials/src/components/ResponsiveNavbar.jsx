@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { assets } from '../assets/assets'
 
 const ResponsiveNavbar = () => {
+
+    const [img, setImg] = useState(false)
+
+
   return (
-    <div>
-      <div>
-        <img src="" alt="" />
-        <img src="" alt="" />
+    <div className='container'>
+      <div className='flex items-center justify-between md:hidden pt-5'>
+        <img className='w-10' src={assets.menu} alt="" />
+        <img className='w-14' src={assets.Vomzer} alt="" />
       </div>
     </div>
   )

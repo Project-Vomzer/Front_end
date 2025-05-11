@@ -7,6 +7,8 @@ import home from "./Home.png"
 import notification from "./Notification.png"
 import services from "./Services.png"
 import wallet from "./Wallet.png"
+import menu from "./menu.png"
+import cancel from "./whitecancel.png"
 
 
 
@@ -21,5 +23,7 @@ export const assets = {
     notification,
     services,
     wallet,
-    Vomzer
+    Vomzer,
+    menu,
+    cancel
 }
