@@ -3,10 +3,10 @@ import { assets } from '../assets/assets'
 
 const Trends = () => {
   return (
-    <div className='bg-white rounded-2xl w-full md:w-[30%]'>
+    <div className='bg-white rounded-2xl w-full md:w-[27%]'>
       <div>
-        <img className='w-16 pt-20 ml-[40%]' src={assets.logo} alt="" />
-        <h1 className='text-xl font-semibold text-center'>Vomzer</h1>
+        <img className='w-16 pt-10 ml-[40%]' src={assets.logo} alt="" />
+        <h1 className='text-xl font-semibold text-center mt-5'>Vomzer</h1>
         <div>
 
         </div>

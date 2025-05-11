@@ -3,7 +3,7 @@ import { assets } from '../assets/assets'
 
 const Feeds = () => {
   return (
-    <div className='bg-white rounded-2xl w-full md:w-[40%]'>
+    <div className='bg-white rounded-2xl w-full md:w-[45%]'>
       <div>
         <div className='flex p-5 gap-5'>
           <img className='w-10 rounded-full' src={assets.logo} alt="" />
