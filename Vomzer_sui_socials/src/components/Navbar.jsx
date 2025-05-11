@@ -5,16 +5,16 @@ const Navbar = () => {
   return (
     <div>
         <div className='md:flex items-center justify-evenly hidden pt-10'>
-            <img src={assets.Vomzer} alt="" />
-            <input className='rounded-2xl px-10 py-1 text-black outline-none focus:border-blue-400 hover:' type="text" placeholder='Search....'/>
-            <img src={assets.home} alt="" />
-            <img src={assets.feeds} alt="" />
-            <img src={assets.notification} alt="" />
-            <img src={assets.chatmessages} alt="" />
-            <img src={assets.wallet} alt="" />
-            <img src={assets.services} alt="" />
-            <img src={assets.Dots} alt="" />
-            <img src="" alt="" />
+            <img className='w-10 cursor-pointer' src={assets.Vomzer} alt="" />
+            <input className='rounded-2xl px-8 py-1 text-black outline-none ' type="text" placeholder='Search....'/>
+            <img className='w-7 cursor-pointer' src={assets.home} alt="" />
+            <img className='w-7 cursor-pointer' src={assets.feeds} alt="" />
+            <img className='w-7 cursor-pointer' src={assets.notification} alt="" />
+            <img className='w-7 cursor-pointer' src={assets.chatmessages} alt="" />
+            <img className='w-7 cursor-pointer' src={assets.wallet} alt="" />
+            <img className='w-7 cursor-pointer' src={assets.services} alt="" />
+            <img className='w-7 cursor-pointer' src={assets.Dots} alt="" />
+            <img className='w-7 cursor-pointer' src="" alt="" />
         </div>
     </div>
   )
