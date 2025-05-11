@@ -9,6 +9,7 @@ import services from "./Services.png"
 import wallet from "./Wallet.png"
 import menu from "./menu.png"
 import cancel from "./whitecancel.png"
+import logo from "./logo.jpg"
 
 
 
@@ -25,5 +26,6 @@ export const assets = {
     wallet,
     Vomzer,
     menu,
-    cancel
+    cancel,
+    logo
 }

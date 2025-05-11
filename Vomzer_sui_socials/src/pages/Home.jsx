@@ -5,7 +5,7 @@ import Sui from '../components/Sui'
 
 const Home = () => {
   return (
-    <div>
+    <div className='flex md:flex-row flex-col items-center justify-between gap-5 container pt-10'>
       <Trends/>
       <Feeds/>
       <Sui/>
