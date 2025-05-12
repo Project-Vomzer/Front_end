@@ -108,7 +108,7 @@ const Feeds = () => {
               </div>
             </div>
         </div>
-        <p>Apri 4</p>
+        <p className='text-sm'>Apri 4</p>
       </div>
     </div>
      {/* .........Another feed........ */}
@@ -120,34 +120,36 @@ const Feeds = () => {
             Vomzer <span className='font-normal'>@vomzer_socials</span>
             </p>
             <p>
-            It's been a few days since the lagos hacker house ended 
-            and team DevSquad are still modifying and working hard to be able to present the best product upcoming @SuiNetwork overflow coming up in few weeks. All hands are on deck to make this dream a reality.
-            #sui #SuiOverflow #SUI
+            We applied for the Lagos Hacker House - Road to Sui Overflow organized by @Sui X @Semicolonafrica and got accepted! 
+            We had expose sessions with @AshleyBateman - COO, Semicolon and Will Riches - Sui Representative
+            #LagosHackerHouse
+            #SemiclonxSui
+            #SemicolonAfrica
             </p>
             <div className='flex pt-5 space-x-10'>
               <div className='flex items-center gap-1'>
                 <img className='w-5 h-5 ' src={assets.Thumbs} alt="" />
-                <p>6273</p>
+                <p>8973</p>
               </div>
               <div className='flex items-center gap-1'>
                 <img className='w-5 h-5 '  src={assets.repost} alt="" />
-                <p>1345</p>
+                <p>3445</p>
               </div>
               <div className='flex items-center gap-1'>
                 <img className='w-5 h-5 '  src={assets.comments} alt="" />
-                <p>45</p>
+                <p>89</p>
               </div>
               <div className='flex items-center gap-1'>
                 <img className='w-5 h-5 '  src={assets.tip} alt="" />
-                <p>24</p>
+                <p>15</p>
               </div>
               <div className='flex items-center gap-1'>
                 <img className='w-5 h-5 ' src={assets.analytics} alt="" />
-                <p>5678</p>
+                <p>5568</p>
               </div>
             </div>
         </div>
-        <p>Apri 4</p>
+        <p className='text-sm'>March 25</p>
       </div>
     </div>
     </div>
