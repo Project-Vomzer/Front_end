@@ -142,7 +142,7 @@ const Sui = () => {
   }
 
   return (
-    <div className="h-full space-y-4 overflow-y-auto p-4">
+    <div className="h-full space-y-4 overflow-y-auto ">
       {error && (
         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
           <div className="flex">
