@@ -10,6 +10,7 @@ import wallet from "./Wallet.png"
 import menu from "./menu.png"
 import cancel from "./whitecancel.png"
 import logo from "./logo.jpg"
+import threedots from "./threedots.png"
 
 
 
@@ -27,5 +28,6 @@ export const assets = {
     Vomzer,
     menu,
     cancel,
-    logo
+    logo,
+    threedots
 }

@@ -1,27 +1,55 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
+import { VomzerContext } from '../context/VomzerContext'
 
 const Trends = () => {
+
+  const {followers, following} = useContext(VomzerContext)
+
+
   return (
-    <div className='bg-white rounded-2xl w-full md:w-[27%] p-10'>
-      <div>
+    <>
+    {/* ...........Profile........... */}
+    <div className=' w-full md:w-[27%] space-y-4'>
+      <div className='bg-white rounded-2xl p-5'>
         <img className='w-16 pt-10 ml-[40%]' src={assets.logo} alt="" />
         <h1 className='text-xl font-semibold text-center mt-5'>Vomzer</h1>
         <p className='text-md text-center mt-2'>@Vomzer Socials</p>
         <p className='text-md text-center mt-2'>Web3 Dev & Cybersecurity Enthusiast | Full-Time Legend</p>
         <p className='w-full border px-5 bg-black mt-4'></p>
-        <div>
+        <div className='flex items-center justify-between pt-5'>
           <div>
-            <p></p>
-            <p></p>
+            <p className='text-md font-semibold'>{following}</p>
+            <p className='text-sm font-light'>following</p>
           </div>
           <div>
-            <p></p>
-            <p></p>
+            <p className='text-md font-semibold'>{followers}</p>
+            <p className='text-sm font-light'>followers</p>
           </div>
         </div>
+        <p className='w-full border px-5 bg-black mt-4'></p>
+        <p className='text-md text-center pt-5'>My Profile</p>
+      </div>
+
+      {/* ..........Trends......... */}
+      <div className='bg-white rounded-2xl p-5'>
+        <p className='text-md font-medium'>Top Trends</p>
+        <p className='text-xl font-normal'>Trending in USA</p>
+        <div className='flex items-center justify-between'>
+          <p>#Vomzer</p>
+          <img src={assets.threedots} alt="" />
+        </div>
+        <p className='text-sm font-light'>174k mentions</p>
+        <div className='flex items-center justify-between pt-2'>
+          <p>#Olympics 2026</p>
+          <img src={assets.threedots} alt="" />
+        </div>
+        <p className='text-sm font-light'>126k mentions</p>
+        <p className='text-center'>More</p>
+        <p className='w-full border px-5 bg-black mt-4'></p>
       </div>
     </div>
+    </>
   )
 }
 
