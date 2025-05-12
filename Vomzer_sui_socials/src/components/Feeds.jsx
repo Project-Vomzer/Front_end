@@ -74,10 +74,10 @@ const Feeds = () => {
       </div>
       {/* .........Another feed........ */}
       <div className='bg-white rounded-2xl p-4'>
-        <div className='flex p-5 gap-5 items-start'>  {/* Added items-start */}
-          <img className='w-10 rounded-full flex-shrink-0' src={assets.logo} alt="" />  {/* Added flex-shrink-0 */}
-          <div className='flex-1'>  {/* Added flex-1 */}
-            <p className='text-justify font-semibold break-words'>  {/* Added text-justify and break-words */}
+        <div className='flex p-5 gap-5 items-start'>  
+          <img className='w-10 rounded-full flex-shrink-0' src={assets.logo} alt="" /> 
+          <div className='flex-1'>  
+            <p className='text-justify font-semibold break-words'> 
             Vomzer <span className='font-normal'>@vomzer_socials</span>
             </p>
             <p>
@@ -85,7 +85,30 @@ const Feeds = () => {
             and team DevSquad are still modifying and working hard to be able to present the best product upcoming @SuiNetwork overflow coming up in few weeks. All hands are on deck to make this dream a reality.
             #sui #SuiOverflow #SUI
             </p>
+            <div className='flex'>
+              <div className='flex'>
+                <img className='w-10 rounded-full ' src={} alt="" />
+                <p></p>
+              </div>
+              <div className='flex'>
+                <img className='w-10 rounded-full ' src={} alt="" />
+                <p></p>
+              </div>
+              <div className='flex'>
+                <img className='w-10 rounded-full ' src={} alt="" />
+                <p></p>
+              </div>
+              <div className='flex'>
+                <img className='w-10 rounded-full ' src={} alt="" />
+                <p></p>
+              </div>
+              <div className='flex'>
+                <img className='w-10 rounded-full ' src={} alt="" />
+                <p></p>
+              </div>
+            </div>
         </div>
+        <p>Apri 4</p>
       </div>
     </div>
     </div>
