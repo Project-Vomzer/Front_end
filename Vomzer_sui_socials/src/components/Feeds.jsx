@@ -3,8 +3,8 @@ import { assets } from '../assets/assets'
 
 const Feeds = () => {
   return (
-    <div className='bg-white rounded-2xl p-4'>
-      <div>
+    <div className='space-y-5' >
+      <div className='bg-white rounded-2xl p-4'>
         <div className='flex p-5 gap-5'>
           <img className='w-10 rounded-full' src={assets.logo} alt="" />
           <input 
@@ -71,6 +71,10 @@ const Feeds = () => {
             </div>
           </label>
         </div>
+      </div>
+      {/* .........Another feed........ */}
+      <div className='bg-white rounded-2xl p-4'>
+
       </div>
     </div>
   )
