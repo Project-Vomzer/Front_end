@@ -8,7 +8,7 @@ const BASE_URL = 'https://vomzersocials-java-backend.onrender.com';
 const Login = () => {
   const [isZkLogin, setIsZkLogin] = useState(true);
   const [formData, setFormData] = useState({
-    username: '',
+    userName: '',  // Corrected field name
     password: '',
     email: '',
   });
@@ -32,8 +32,8 @@ const Login = () => {
   const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.username.trim()) {
-      newErrors.username = 'Username is required';
+    if (!formData.userName.trim()) {  // Corrected field name
+      newErrors.userName = 'Username is required';  // Corrected field name
     }
     
     if (!isZkLogin) {
@@ -120,6 +120,7 @@ const Login = () => {
       
       const response = await axios.post(`${BASE_URL}/api/auth/login`, {
         zkProof,
+        userName: formData.userName  // Added userName to zkLogin payload
       }, {
         headers: {
           'Content-Type': 'application/json',
@@ -176,21 +177,21 @@ const Login = () => {
 
           <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="userName" className="block text-sm font-medium text-gray-700">
                 Username
               </label>
               <div className="mt-1">
                 <input
-                  id="username"
-                  name="username"
+                  id="userName"
+                  name="userName"
                   type="text"
                   required
-                  value={formData.username}
+                  value={formData.userName}
                   onChange={handleChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${errors.username ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm`}
+                  className={`appearance-none block w-full px-3 py-2 border ${errors.userName ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm`}
                 />
-                {errors.username && (
-                  <p className="mt-1 text-sm text-red-600">{errors.username}</p>
+                {errors.userName && (
+                  <p className="mt-1 text-sm text-red-600">{errors.userName}</p>
                 )}
               </div>
             </div>
