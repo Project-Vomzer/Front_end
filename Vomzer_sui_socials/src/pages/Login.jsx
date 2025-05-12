@@ -10,37 +10,102 @@ const Login = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
+    email: '',
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    // Clear error when user types
+    if (errors[e.target.name]) {
+      setErrors({
+        ...errors,
+        [e.target.name]: null,
+      });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.username.trim()) {
+      newErrors.username = 'Username is required';
+    }
+    
+    if (!isZkLogin) {
+      if (!formData.password) {
+        newErrors.password = 'Password is required';
+      } else if (formData.password.length < 6) {
+        newErrors.password = 'Password must be at least 6 characters';
+      }
+      
+      if (!formData.email) {
+        newErrors.email = 'Email is required';
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        newErrors.email = 'Invalid email format';
+      }
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsLoading(true);
 
     try {
       const endpoint = isZkLogin ? '/api/auth/login' : '/api/auth/register';
-      const response = await axios.post(`${BASE_URL}${endpoint}`, formData);
+      console.log('Sending to:', `${BASE_URL}${endpoint}`);
+      console.log('Payload:', formData);
 
+      const response = await axios.post(`${BASE_URL}${endpoint}`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Response:', response.data);
+      
       if (isZkLogin) {
         toast.success('Login successful!');
-        // Handle successful login (store token, redirect, etc.)
-        console.log('Login response:', response.data);
+        // Store token and redirect
+        localStorage.setItem('authToken', response.data.token);
+        window.location.href = '/dashboard';
       } else {
-        toast.success('Registration successful!');
-        // Handle successful registration
-        console.log('Registration response:', response.data);
+        toast.success('Registration successful! Please login.');
+        setIsZkLogin(true); // Switch to login after registration
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'An error occurred';
-      toast.error(errorMessage);
-      console.error('Error:', error);
+      console.error('Full error:', error);
+      
+      // Handle different types of errors
+      if (error.response) {
+        console.error('Error response:', error.response);
+        
+        // Backend validation errors
+        if (error.response.data.errors) {
+          setErrors(error.response.data.errors);
+        }
+        
+        const errorMessage = error.response.data.message || 
+                           error.response.data.error || 
+                           'An error occurred. Please try again.';
+        toast.error(errorMessage);
+      } else if (error.request) {
+        toast.error('No response from server. Please check your connection.');
+      } else {
+        toast.error('Request failed. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -49,22 +114,34 @@ const Login = () => {
   const handleZkLogin = async () => {
     setIsLoading(true);
     try {
-      // This would be replaced with actual zk proof generation and verification
+      // Placeholder for zk proof generation
+      // In a real app, you would generate the proof here
+      const zkProof = 'generated-proof-here';
+      
       const response = await axios.post(`${BASE_URL}/api/auth/login`, {
-        zkProof: 'generated-proof-here', // In a real app, this would be generated
+        zkProof,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+      
       toast.success('zkLogin successful!');
       console.log('zkLogin response:', response.data);
+      
+      // Store token and redirect
+      localStorage.setItem('authToken', response.data.token);
+      window.location.href = '/dashboard';
     } catch (error) {
-      toast.error(error.response?.data?.message || 'zkLogin failed');
       console.error('zkLogin error:', error);
+      toast.error(error.response?.data?.message || 'zkLogin failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="  flex flex-col justify-center container py-12 sm:px-6 lg:px-8">
+    <div className="flex flex-col justify-center container py-12 sm:px-6 lg:px-8">
       <ToastContainer position="top-right" autoClose={5000} />
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-medium text-white prata-regular">
@@ -110,28 +187,56 @@ const Login = () => {
                   required
                   value={formData.username}
                   onChange={handleChange}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                  className={`appearance-none block w-full px-3 py-2 border ${errors.username ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm`}
                 />
+                {errors.username && (
+                  <p className="mt-1 text-sm text-red-600">{errors.username}</p>
+                )}
               </div>
             </div>
 
             {!isZkLogin && (
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Password
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
-                  />
+              <>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    Email
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={`appearance-none block w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm`}
+                    />
+                    {errors.email && (
+                      <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                    )}
+                  </div>
                 </div>
-              </div>
+
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    Password
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      required
+                      value={formData.password}
+                      onChange={handleChange}
+                      className={`appearance-none block w-full px-3 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm`}
+                    />
+                    {errors.password && (
+                      <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+                    )}
+                  </div>
+                </div>
+              </>
             )}
 
             <div>

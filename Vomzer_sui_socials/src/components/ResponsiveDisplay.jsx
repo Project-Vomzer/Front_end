@@ -44,6 +44,10 @@ const ResponsiveDisplay = ({img}) => {
                             {/* <Link to="/" ><li>menu</li></Link> */}
                             <img className='w-5' src={assets.Dots} alt="" />
                         </div>
+                        <div className='flex gap-5'>
+                            {/* <Link to="/" ><li>menu</li></Link> */}
+                            <img className='w-5' src={assets.login} alt="" />
+                        </div>
                     </ul>
                 </div>
             </motion.div>
