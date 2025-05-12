@@ -10,7 +10,7 @@ const Trends = () => {
   return (
     <>
     {/* ...........Profile........... */}
-    <div className=' w-full md:w-[27%] space-y-4'>
+    <div className=' w-full md:w-[27%] space-y-4 pb-10'>
       <div className='bg-white rounded-2xl p-5'>
         <img className='w-16 pt-10 ml-[40%]' src={assets.logo} alt="" />
         <h1 className='text-xl font-semibold text-center mt-5'>Vomzer</h1>
@@ -46,7 +46,20 @@ const Trends = () => {
         </div>
         <p className='text-sm font-light'>126k mentions</p>
         <p className='text-center'>More</p>
-        <p className='w-full border px-5 bg-black mt-4'></p>
+        <p className='w-full border px-5 bg-black mt-4 mb-4'></p>
+        <p className='text-md font-medium'>Top Trends</p>
+        <p className='text-xl font-normal'>Trending in USA</p>
+        <div className='flex items-center justify-between'>
+          <p>#Vomzer</p>
+          <img src={assets.threedots} alt="" />
+        </div>
+        <p className='text-sm font-light'>174k mentions</p>
+        <div className='flex items-center justify-between pt-2'>
+          <p>#Olympics 2026</p>
+          <img src={assets.threedots} alt="" />
+        </div>
+        <p className='text-sm font-light'>126k mentions</p>
+        <p className='text-center'>More</p>
       </div>
     </div>
     </>
