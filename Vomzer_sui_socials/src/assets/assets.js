@@ -16,6 +16,7 @@ import Thumbs from "./Thumbs Up.png"
 import repost from "./repost.png"
 import tip from "./tip.png"
 import threedots from "./threedots.png"
+import login from "./login.png"
 
 
 
@@ -39,5 +40,6 @@ export const assets = {
     tip,
     comments,
     repost,
-    Thumbs
+    Thumbs,
+    login
 }
