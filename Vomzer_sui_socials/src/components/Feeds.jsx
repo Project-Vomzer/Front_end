@@ -8,13 +8,13 @@ const Feeds = () => {
         <div className='flex p-5 gap-5'>
           <img className='w-10 rounded-full' src={assets.logo} alt="" />
           <input 
-            className='border-2 pl-2 rounded-xl w-full border-gray-700' 
+            className='border-2 pl-2 outline-none rounded-xl w-full border-gray-700' 
             type="text" 
             placeholder='Whats happening ?'
           />
         </div>
         
-        {/* File Inputs Section */}
+        
         <div className='flex justify-between px-5 pb-5 gap-4'>
           <label className='flex flex-col items-center cursor-pointer'>
             <span className='text-xs font-medium text-gray-700 mb-1'>Photo</span>
