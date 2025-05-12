@@ -85,26 +85,26 @@ const Feeds = () => {
             and team DevSquad are still modifying and working hard to be able to present the best product upcoming @SuiNetwork overflow coming up in few weeks. All hands are on deck to make this dream a reality.
             #sui #SuiOverflow #SUI
             </p>
-            <div className='flex'>
-              <div className='flex'>
-                <img className='w-10 rounded-full ' src={} alt="" />
-                <p></p>
+            <div className='flex pt-5 space-x-10'>
+              <div className='flex items-center gap-1'>
+                <img className='w-5 h-5 ' src={assets.Thumbs} alt="" />
+                <p>6273</p>
               </div>
-              <div className='flex'>
-                <img className='w-10 rounded-full ' src={} alt="" />
-                <p></p>
+              <div className='flex items-center gap-1'>
+                <img className='w-5 h-5 '  src={assets.repost} alt="" />
+                <p>1345</p>
               </div>
-              <div className='flex'>
-                <img className='w-10 rounded-full ' src={} alt="" />
-                <p></p>
+              <div className='flex items-center gap-1'>
+                <img className='w-5 h-5 '  src={assets.comments} alt="" />
+                <p>45</p>
               </div>
-              <div className='flex'>
-                <img className='w-10 rounded-full ' src={} alt="" />
-                <p></p>
+              <div className='flex items-center gap-1'>
+                <img className='w-5 h-5 '  src={assets.tip} alt="" />
+                <p>24</p>
               </div>
-              <div className='flex'>
-                <img className='w-10 rounded-full ' src={} alt="" />
-                <p></p>
+              <div className='flex items-center gap-1'>
+                <img className='w-5 h-5 ' src={assets.analytics} alt="" />
+                <p>5678</p>
               </div>
             </div>
         </div>

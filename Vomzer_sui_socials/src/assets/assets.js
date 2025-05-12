@@ -10,6 +10,11 @@ import wallet from "./Wallet.png"
 import menu from "./menu.png"
 import cancel from "./whitecancel.png"
 import logo from "./logo.jpg"
+import analytics from "./analytics.png"
+import comments from "./comments.png"
+import Thumbs from "./Thumbs Up.png"
+import repost from "./repost.png"
+import tip from "./tip.png"
 import threedots from "./threedots.png"
 
 
@@ -29,5 +34,10 @@ export const assets = {
     menu,
     cancel,
     logo,
-    threedots
+    threedots,
+    analytics,
+    tip,
+    comments,
+    repost,
+    Thumbs
 }
