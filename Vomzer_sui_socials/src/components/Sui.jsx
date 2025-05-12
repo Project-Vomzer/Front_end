@@ -11,7 +11,6 @@ const Sui = () => {
   const [error, setError] = useState(null);
   const [retryCount, setRetryCount] = useState(0);
 
-  
   const USE_MOCK_DATA = import.meta.env.DEV; 
   const API_RETRY_DELAY = 60000; 
   const API_REFRESH_INTERVAL = 300000; 
@@ -91,7 +90,6 @@ const Sui = () => {
       setError(error.message);
       setRetryCount(prev => prev + 1);
       
-      
       if (retryCount >= 2) {
         setData(mockData);
       }
@@ -133,7 +131,7 @@ const Sui = () => {
 
   if (loading) {
     return (
-      <div className="space-y-4 p-4 h-[calc(100vh-4rem)] overflow-y-auto">
+      <div className="h-full space-y-4 p-4">
         {[...Array(3)].map((_, i) => (
           <div key={i} className="bg-white rounded-xl p-4 shadow-sm h-40 flex items-center justify-center animate-pulse">
             Loading data...
@@ -144,7 +142,7 @@ const Sui = () => {
   }
 
   return (
-    <div className="space-y-4 pt-4 h-[calc(100vh-4rem)] md:w-[27%] w-full">
+    <div className="h-full space-y-4 overflow-y-auto p-4">
       {error && (
         <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
           <div className="flex">

@@ -5,10 +5,16 @@ import Sui from '../components/Sui'
 
 const Home = () => {
   return (
-    <div className='flex md:flex-row flex-col items-center justify-between md:gap-2 gap-10 container pt-10'>
-      <Trends/>
-      <Feeds/>
-      <Sui/>
+    <div className='flex md:flex-row flex-col items-stretch gap-4 container pt-10 pb-10'>
+      <div className='md:w-[27%] w-full'>
+        <Trends />
+      </div>
+      <div className='md:w-[45%] w-full'>
+        <Feeds />
+      </div>
+      <div className='md:w-[27%] w-full'>
+        <Sui />
+      </div>
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { assets } from '../assets/assets'
 
 const Feeds = () => {
   return (
-    <div className='bg-white rounded-2xl w-full md:w-[45%]'>
+    <div className='bg-white rounded-2xl p-4'>
       <div>
         <div className='flex p-5 gap-5'>
           <img className='w-10 rounded-full' src={assets.logo} alt="" />
@@ -13,7 +13,6 @@ const Feeds = () => {
             placeholder='Whats happening ?'
           />
         </div>
-        
         
         <div className='flex justify-between px-5 pb-5 gap-4'>
           <label className='flex flex-col items-center cursor-pointer'>
