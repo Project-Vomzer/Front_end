@@ -8,7 +8,7 @@ const BASE_URL = 'https://vomzersocials-java-backend.onrender.com';
 const Login = () => {
   const [isZkLogin, setIsZkLogin] = useState(true);
   const [formData, setFormData] = useState({
-    userName: '',  // Corrected field name
+    userName: '',  
     password: '',
     email: '',
   });
@@ -20,7 +20,7 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    // Clear error when user types
+    
     if (errors[e.target.name]) {
       setErrors({
         ...errors,
@@ -32,8 +32,8 @@ const Login = () => {
   const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.userName.trim()) {  // Corrected field name
-      newErrors.userName = 'Username is required';  // Corrected field name
+    if (!formData.userName.trim()) {  
+      newErrors.userName = 'Username is required';  
     }
     
     if (!isZkLogin) {
@@ -78,21 +78,20 @@ const Login = () => {
       
       if (isZkLogin) {
         toast.success('Login successful!');
-        // Store token and redirect
         localStorage.setItem('authToken', response.data.token);
-        window.location.href = '/dashboard';
+        window.location.href = '/';
       } else {
         toast.success('Registration successful! Please login.');
-        setIsZkLogin(true); // Switch to login after registration
+        setIsZkLogin(true); 
       }
     } catch (error) {
       console.error('Full error:', error);
       
-      // Handle different types of errors
+      
       if (error.response) {
         console.error('Error response:', error.response);
         
-        // Backend validation errors
+    
         if (error.response.data.errors) {
           setErrors(error.response.data.errors);
         }
@@ -114,13 +113,11 @@ const Login = () => {
   const handleZkLogin = async () => {
     setIsLoading(true);
     try {
-      // Placeholder for zk proof generation
-      // In a real app, you would generate the proof here
       const zkProof = 'generated-proof-here';
       
       const response = await axios.post(`${BASE_URL}/api/auth/login`, {
         zkProof,
-        userName: formData.userName  // Added userName to zkLogin payload
+        userName: formData.userName  
       }, {
         headers: {
           'Content-Type': 'application/json',
@@ -130,7 +127,7 @@ const Login = () => {
       toast.success('zkLogin successful!');
       console.log('zkLogin response:', response.data);
       
-      // Store token and redirect
+      
       localStorage.setItem('authToken', response.data.token);
       window.location.href = '/dashboard';
     } catch (error) {

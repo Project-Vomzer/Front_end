@@ -1,9 +1,11 @@
 import React from 'react'
 import { AnimatePresence,motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { assets } from '../assets/assets'
 
+
 const ResponsiveDisplay = ({img}) => {
+    const navigate = useNavigate()
 
 
   return <AnimatePresence>
@@ -46,7 +48,7 @@ const ResponsiveDisplay = ({img}) => {
                         </div>
                         <div className='flex gap-5'>
                             {/* <Link to="/" ><li>menu</li></Link> */}
-                            <img className='w-5' src={assets.login} alt="" />
+                            <img onClick={()=> navigate("/login")} className='w-5' src={assets.login} alt="" />
                         </div>
                     </ul>
                 </div>
