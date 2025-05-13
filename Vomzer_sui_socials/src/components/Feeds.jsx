@@ -73,83 +73,83 @@ const Feeds = () => {
         </div>
       </div>
       {/* .........Another feed........ */}
-      <div className='bg-white rounded-2xl p-4'>
-        <div className='flex p-5  items-start'>  
+      <div className='bg-white rounded-2xl p-1 md:p-4'>
+        <div className='flex md:p-5 p-1 items-start '>  
           <img className='w-10 rounded-full flex-shrink-0' src={assets.logo} alt="" /> 
           <div className='flex-1'>  
             <p className='text-justify font-semibold break-words'> 
             Vomzer <span className='font-normal'>@vomzer_socials</span>
             </p>
-            <p>
+            <p className='md:text-sm text-xs'>
             It's been a few days since the lagos hacker house ended 
             and team DevSquad are still modifying and working hard to be able to present the best product upcoming @SuiNetwork overflow coming up in few weeks. All hands are on deck to make this dream a reality.
             #sui #SuiOverflow #SUI
             </p>
-            <div className='flex pt-5 space-x-10'>
-              <div className='flex items-center gap-1'>
-                <img className='w-5 h-5 ' src={assets.Thumbs} alt="" />
-                <p>6273</p>
+            <div className='flex items-center pt-5 md:space-x-10 space-x-7'>
+              <div className='flex items-center md:gap-1'>
+                <img className='md:w-5 w-3 md:h-5 h-3 ' src={assets.Thumbs} alt="" />
+                <p className='md:text-sm text-xs'>6273</p>
               </div>
-              <div className='flex items-center gap-1'>
-                <img className='w-5 h-5 '  src={assets.repost} alt="" />
-                <p>1345</p>
+              <div className='flex items-center md:gap-1'>
+                <img className='md:w-5 w-3 md:h-5 h-3 '  src={assets.repost} alt="" />
+                <p className='md:text-sm text-xs'>1345</p>
               </div>
-              <div className='flex items-center gap-1'>
-                <img className='w-5 h-5 '  src={assets.comments} alt="" />
-                <p>45</p>
+              <div className='flex items-center md:gap-1'>
+                <img className='md:w-5 w-3 md:h-5 h-3 '  src={assets.comments} alt="" />
+                <p className='md:text-sm text-xs'>45</p>
               </div>
-              <div className='flex items-center gap-1'>
-                <img className='w-5 h-5 '  src={assets.tip} alt="" />
-                <p>24</p>
+              <div className='flex items-center md:gap-1'>
+                <img className='md:w-5 w-3 md:h-5 h-3 '  src={assets.tip} alt="" />
+                <p className='md:text-sm text-xs'>24</p>
               </div>
-              <div className='flex items-center gap-1'>
-                <img className='w-5 h-5 ' src={assets.analytics} alt="" />
-                <p>5678</p>
+              <div className='flex items-center md:gap-1'>
+                <img className='md:w-5 w-3 md:h-5 h-3 ' src={assets.analytics} alt="" />
+                <p className='md:text-sm text-xs'>5678</p>
               </div>
             </div>
         </div>
-        <p className='text-sm'>Apri 4</p>
+        <p className='md:text-sm text-xs'>Apri 4</p>
       </div>
     </div>
      {/* .........Another feed........ */}
-     <div className='bg-white rounded-2xl p-4'>
-        <div className='flex p-5 items-start'>  
+     <div className='bg-white rounded-2xl p-1 md:p-4'>
+        <div className='flex md:p-5 p-1 items-start'>  
           <img className='w-10 rounded-full flex-shrink-0' src={assets.logo} alt="" /> 
           <div className='flex-1'>  
             <p className='text-justify font-semibold break-words'> 
             Vomzer <span className='font-normal'>@vomzer_socials</span>
             </p>
-            <p>
+            <p className='md:text-sm text-xs'>
             We applied for the Lagos Hacker House - Road to Sui Overflow organized by @Sui X @Semicolonafrica and got accepted! 
             We had expose sessions with @AshleyBateman - COO, Semicolon and Will Riches - Sui Representative
             #LagosHackerHouse
             #SemiclonxSui
             #SemicolonAfrica
             </p>
-            <div className='flex pt-5 space-x-10'>
-              <div className='flex items-center gap-1'>
-                <img className='w-5 h-5 ' src={assets.Thumbs} alt="" />
-                <p>8973</p>
+            <div className='flex items-center pt-5 md:space-x-10 space-x-7'>
+              <div className='flex items-center md:gap-1'>
+                <img className='md:w-5 w-3 md:h-5 h-3 ' src={assets.Thumbs} alt="" />
+                <p className='md:text-sm text-xs'>8973</p>
               </div>
-              <div className='flex items-center gap-1'>
-                <img className='w-5 h-5 '  src={assets.repost} alt="" />
-                <p>3445</p>
+              <div className='flex items-center md:gap-1'>
+                <img className='md:w-5 w-3 md:h-5 h-3 '  src={assets.repost} alt="" />
+                <p className='md:text-sm text-xs'>3445</p>
               </div>
-              <div className='flex items-center gap-1'>
-                <img className='w-5 h-5 '  src={assets.comments} alt="" />
-                <p>89</p>
+              <div className='flex items-center md:gap-1'>
+                <img className='md:w-5 w-3 md:h-5 h-3 '  src={assets.comments} alt="" />
+                <p className='md:text-sm text-xs'>89</p>
               </div>
-              <div className='flex items-center gap-1'>
-                <img className='w-5 h-5 '  src={assets.tip} alt="" />
-                <p>15</p>
+              <div className='flex items-center md:gap-1'>
+                <img className='md:w-5 w-3 md:h-5 h-3 '  src={assets.tip} alt="" />
+                <p className='md:text-sm text-xs'>15</p>
               </div>
-              <div className='flex items-center gap-1'>
-                <img className='w-5 h-5 ' src={assets.analytics} alt="" />
-                <p>5568</p>
+              <div className='flex items-center md:gap-1'>
+                <img className='md:w-5 w-3 md:h-5 h-3 ' src={assets.analytics} alt="" />
+                <p className='md:text-sm text-xs'>5568</p>
               </div>
             </div>
         </div>
-        <p className='text-sm'>March 25</p>
+        <p className='md:text-sm text-xs'>March 25</p>
       </div>
     </div>
     </div>
