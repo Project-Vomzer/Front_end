@@ -23,7 +23,7 @@ const Navbar = () => {
             </div>
             <div className='block items-center justify-center'>
               <img className='w-7 cursor-pointer' src={assets.notification} alt="" />
-              <p className='text-white text-sm '>Notifications</p>
+              <p className='text-white text-sm '>Alerts</p>
             </div>
             <div className='block items-center justify-center'>
               <img className='w-7 cursor-pointer' src={assets.chatmessages} alt="" />
