@@ -23,27 +23,24 @@ const isValidPassword = (password) => {
   );
 };
 
+// 🔐 Placeholder for zk-proof generation logic
+const generateZkProof = (username) => {
+  // You should replace this with actual zk proof generation logic
+  return `zk-proof-for-${username}`;
+};
+
 const Login = () => {
   const [authMode, setAuthMode] = useState('zk');
   const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    userName: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState({ userName: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-
-    if (errors[e.target.name]) {
-      setErrors({
-        ...errors,
-        [e.target.name]: null,
-      });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: null }));
     }
   };
 
@@ -53,16 +50,14 @@ const Login = () => {
     if (!formData.userName.trim()) {
       newErrors.userName = 'Username is required';
     } else if (!isValidUsername(formData.userName)) {
-      newErrors.userName =
-        'Username must be 3-50 characters and contain only letters, numbers, ".", "-", or "_"';
+      newErrors.userName = 'Username must be 3-50 characters and valid format';
     }
 
     if (authMode === 'standard') {
       if (!formData.password) {
         newErrors.password = 'Password is required';
       } else if (!isValidPassword(formData.password)) {
-        newErrors.password =
-          'Password must be 8-128 characters, include uppercase, lowercase, number, and special character (@$!%?&)';
+        newErrors.password = 'Invalid password format';
       }
     }
 
@@ -72,87 +67,66 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsLoading(true);
 
     try {
-      let endpoint, payload;
+      const endpoint = isLogin 
+        ? `/api/auth/login/${authMode}`
+        : `/api/auth/register/${authMode}`;
 
-      if (authMode === 'standard') {
-        if (isLogin) {
-          endpoint = '/api/auth/login/standard';
-          payload = {
+      const payload = authMode === 'standard'
+        ? {
             userName: formData.userName,
             password: formData.password,
-          };
-        } else {
-          endpoint = '/api/auth/register/standard';
-          payload = {
+          }
+        : {
             userName: formData.userName,
-            password: formData.password,
+            zkProof: generateZkProof(formData.userName),
           };
-        }
-      } else {
-        if (isLogin) {
-          endpoint = '/api/auth/login/zk';
-          payload = {
-            userName: formData.userName,
-            zkProof: 'generated-proof-here',
-          };
-        } else {
-          endpoint = '/api/auth/register/zk';
-          payload = {
-            userName: formData.userName,
-            zkProof: 'generated-proof-here',
-          };
-        }
-      }
-
-      console.log('Sending to:', `${BASE_URL}${endpoint}`);
-      console.log('Payload:', payload);
 
       const response = await axios.post(`${BASE_URL}${endpoint}`, payload, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
+        validateStatus: (status) => status < 500,
       });
 
-      console.log('Response:', response.data);
-
-      toast.success(isLogin ? 'Login successful!' : 'Registration successful!');
-
-      if (isLogin) {
-        localStorage.setItem('JWT_SECRET_KEY', response.data?.JWT_SECRET_KEY);
-        window.location.href = '/';
+      if (response.status >= 200 && response.status < 300) {
+        toast.success(isLogin ? 'Login successful!' : 'Registration successful!');
+        if (isLogin) {
+          localStorage.setItem('accessToken', response.data?.accessToken);
+          window.location.href = '/';
+        } else {
+          setIsLogin(true);
+          setFormData({ userName: '', password: '' });
+        }
       } else {
-        setIsLogin(true);
+        handleErrorResponse(response);
       }
     } catch (error) {
-      console.error('Full error:', error);
-
       if (error.response) {
-        console.error('Error response:', error.response);
-
-        if (error.response?.data?.errors) {
-          setErrors(error?.response?.data.errors);
-        }
-
-        const errorMessage =
-          error.response?.data?.message ||
-          error.response?.data?.error ||
-          'An error occurred. Please try again.';
-        toast.error(errorMessage);
-      } else if (error.request) {
-        toast.error('No response from server. Please check your connection.');
+        handleErrorResponse(error.response);
       } else {
-        toast.error('Request failed. Please try again.');
+        toast.error('Unexpected error. Try again.');
       }
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleErrorResponse = (response) => {
+    const serverError = response.data?.error || response.data?.message;
+    if (response.status === 400 || response.status === 409) {
+      if (serverError?.toLowerCase().includes('username')) {
+        setErrors(prev => ({ ...prev, userName: serverError }));
+      } else if (serverError?.toLowerCase().includes('password')) {
+        setErrors(prev => ({ ...prev, password: serverError }));
+      }
+      toast.error(serverError);
+    } else if (response.status === 500) {
+      toast.error('Server error. Try again later.');
+    } else {
+      toast.error(`Error: ${response.status}`);
     }
   };
 
@@ -160,8 +134,8 @@ const Login = () => {
     <div className="flex flex-col justify-center container py-12 sm:px-6 lg:px-8">
       <ToastContainer position="top-right" autoClose={5000} />
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-medium text-white prata-regular">
-          {isLogin ? 'Sign in to your account' : 'Create a new account'}
+        <h2 className="mt-6 text-center text-3xl font-medium text-white">
+          {isLogin ? 'Log in to your account' : 'Create a new account'}
         </h2>
       </div>
 
@@ -182,25 +156,24 @@ const Login = () => {
             </button>
           </div>
 
-          <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="userName" className="block text-sm font-medium text-gray-700">
                 Username
               </label>
-              <div className="mt-1">
-                <input
-                  id="userName"
-                  name="userName"
-                  type="text"
-                  required
-                  value={formData.userName}
-                  onChange={handleChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${errors.userName ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm`}
-                />
-                {errors.userName && (
-                  <p className="mt-1 text-sm text-red-600">{errors.userName}</p>
-                )}
-              </div>
+              <input
+                id="userName"
+                name="userName"
+                type="text"
+                required
+                value={formData.userName}
+                onChange={handleChange}
+                disabled={isLoading}
+                className={`mt-1 block w-full px-3 py-2 border ${
+                  errors.userName ? 'border-red-500' : 'border-gray-300'
+                } rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500 sm:text-sm`}
+              />
+              {errors.userName && <p className="mt-1 text-sm text-red-600">{errors.userName}</p>}
             </div>
 
             {authMode === 'standard' && (
@@ -208,20 +181,19 @@ const Login = () => {
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Password
                 </label>
-                <div className="mt-1">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required={authMode === 'standard'}
-                    value={formData.password}
-                    onChange={handleChange}
-                    className={`appearance-none block w-full px-3 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm`}
-                  />
-                  {errors.password && (
-                    <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-                  )}
-                </div>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  value={formData.password}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                  className={`mt-1 block w-full px-3 py-2 border ${
+                    errors.password ? 'border-red-500' : 'border-gray-300'
+                  } rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500 sm:text-sm`}
+                />
+                {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
               </div>
             )}
 
@@ -229,25 +201,23 @@ const Login = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 disabled:opacity-50"
               >
-                {isLoading
-                  ? 'Processing...'
-                  : isLogin
-                  ? 'Sign in'
-                  : 'Register'}
+                {isLoading ? 'Processing...' : isLogin ? 'Log in' : 'Register'}
               </button>
             </div>
           </form>
 
           <div className="mt-6 text-center">
             <button
-              onClick={() => setIsLogin(!isLogin)}
+              onClick={() => {
+                setIsLogin(!isLogin);
+                setErrors({});
+              }}
               className="font-medium text-teal-600 hover:text-teal-500"
+              disabled={isLoading}
             >
-              {isLogin
-                ? 'Need to create an account?'
-                : 'Already have an account?  Sign in'}
+              {isLogin ? 'Need to create an account?' : 'Already have an account? Log in'}
             </button>
           </div>
         </div>
