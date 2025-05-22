@@ -5,7 +5,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      // For CoinGecko API
       '/api/coingecko': {
         target: 'https://api.coingecko.com/api/v3',
         changeOrigin: true,
@@ -20,7 +19,6 @@ export default defineConfig({
           });
         },
       },
-      // For your Java backend
       '/api': {
         target: 'https://vomzersocials-java-backend-1.onrender.com',
         changeOrigin: true,

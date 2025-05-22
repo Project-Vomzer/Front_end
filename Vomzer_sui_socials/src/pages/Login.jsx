@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Using proxy path instead of direct URL
+
 const BASE_URL = '/api';
 
 const isValidUsername = (username) => {
@@ -20,7 +20,7 @@ const Login = () => {
   const [formData, setFormData] = useState({
     userName: '',
     password: '',
-    jwt: '' // For zk auth
+    jwt: '' 
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
