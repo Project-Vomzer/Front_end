@@ -19,20 +19,6 @@ export default defineConfig({
           });
         },
       },
-      '/api': {
-        target: 'https://vomzersocials-java-backend-1.onrender.com',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-        configure: (proxy) => {
-          proxy.on('proxyReq', (proxyReq) => {
-            proxyReq.setHeader('Accept', 'application/json');
-          });
-          proxy.on('error', (err) => {
-            console.error('Backend proxy error:', err);
-          });
-        },
-      },
     },
   },
 });

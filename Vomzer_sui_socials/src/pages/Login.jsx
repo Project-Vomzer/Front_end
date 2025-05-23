@@ -3,8 +3,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-const BASE_URL = '/api';
+const BASE_URL = 'https://vomzersocials-java-backend-1.onrender.com/api';
 
 const isValidUsername = (username) => {
   return username && username.length >= 3 && username.length <= 50 && /^[a-zA-Z0-9._-]+$/.test(username);
@@ -19,8 +18,7 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     userName: '',
-    password: '',
-    jwt: '' 
+    password: ''
   });
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -43,13 +41,9 @@ const Login = () => {
     if (authMode === 'standard') {
       if (!formData.password) {
         newErrors.password = 'Password is required';
-      } else if (!isValidPassword(formData.password)) {
+      } else if (!isLogin && !isValidPassword(formData.password)) {
         newErrors.password = 'Password must be 8+ chars with uppercase, lowercase, number, and special character';
       }
-    }
-
-    if (authMode === 'zk' && !isLogin && !formData.jwt) {
-      newErrors.jwt = 'JWT is required for zk registration';
     }
 
     setErrors(newErrors);
@@ -58,14 +52,13 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      // This would be replaced with your actual Google OAuth flow
-      // For now, we'll simulate getting a JWT
-      const simulatedJwt = 'simulated.jwt.token';
-      setFormData(prev => ({ ...prev, jwt: simulatedJwt }));
-      toast.info('Google authentication successful');
+      const simulatedJwt = 'simulated.google.jwt.token';
+      toast.info('Google authentication successful (simulated)');
+      return simulatedJwt;
     } catch (error) {
       toast.error('Google authentication failed');
       console.error('Google auth error:', error);
+      return null;
     }
   };
 
@@ -75,43 +68,73 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const endpoint = isLogin 
-        ? `/auth/login/${authMode}`
-        : `/auth/register/${authMode}`;
+      let endpoint, payload;
 
-      const payload = authMode === 'standard'
-        ? { userName: formData.userName, password: formData.password }
-        : { userName: formData.userName, jwt: formData.jwt };
+      if (isLogin) {
+        endpoint = `/auth/login/${authMode}`;
+        payload = authMode === 'standard' 
+          ? { 
+              userName: formData.userName, 
+              password: formData.password 
+            }
+          : { userName: formData.userName };
+      } else {
+        endpoint = `/auth/register/${authMode}`;
+        payload = authMode === 'standard'
+          ? { 
+              userName: formData.userName,
+              password: formData.password
+            }
+          : { userName: formData.userName };
+      }
 
-      const response = await axios.post(`${BASE_URL}${endpoint}`, payload, {
-        headers: { 
+      // Create axios instance with proper CORS configuration
+      const api = axios.create({
+        baseURL: BASE_URL,
+        headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
       });
 
-      if (response.status === 200) {
+      const response = await api.post(endpoint, payload);
+
+      if (response.data) {
         const successMessage = isLogin 
           ? 'Login successful!' 
-          : 'Registration successful! Wallet created.';
+          : 'Registration successful!';
         
         toast.success(successMessage);
         
         if (isLogin) {
-          localStorage.setItem('authToken', response.data.token);
-          window.location.href = '/dashboard';
-        } else {
-          if (response.data.walletAddress) {
-            toast.info(`Wallet Address: ${response.data.walletAddress}`);
+          if (response.data.token) {
+            localStorage.setItem('authToken', response.data.token);
+            localStorage.setItem('userName', formData.userName);
           }
+          window.location.href = '/';
+        } else {
           setIsLogin(true);
+          setFormData(prev => ({ ...prev, password: '' }));
         }
       }
     } catch (error) {
       console.error('API Error:', error);
-      const errorMsg = error.response?.data?.message || 
-                      error.message || 
-                      'Request failed. Please try again.';
+      
+      let errorMsg = 'An error occurred';
+      if (error.response) {
+        if (error.response.status === 401) {
+          errorMsg = 'Unauthorized: Please check your credentials';
+        } else if (error.response.status === 400) {
+          errorMsg = error.response.data?.message || 'Invalid request data';
+        } else {
+          errorMsg = error.response.data?.message || `Server error: ${error.response.status}`;
+        }
+      } else if (error.message === 'Network Error') {
+        errorMsg = 'Network Error: Could not connect to server. Please try again later.';
+      } else if (error.code === 'ERR_NETWORK') {
+        errorMsg = 'Network connection failed. Check your internet connection.';
+      }
+
       toast.error(errorMsg);
     } finally {
       setIsLoading(false);
@@ -206,32 +229,13 @@ const Login = () => {
 
             {authMode === 'zk' && !isLogin && (
               <div>
-                <label htmlFor="jwt" className="block text-sm font-medium text-gray-700">
-                  JWT Token
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="jwt"
-                    name="jwt"
-                    type="text"
-                    value={formData.jwt}
-                    onChange={handleChange}
-                    className={`appearance-none block w-full px-3 py-2 border ${
-                      errors.jwt ? 'border-red-300' : 'border-gray-300'
-                    } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm`}
-                    disabled={isLoading}
-                  />
-                  {errors.jwt && (
-                    <p className="mt-2 text-sm text-red-600">{errors.jwt}</p>
-                  )}
-                </div>
                 <button
                   type="button"
                   onClick={handleGoogleLogin}
-                  className="mt-2 w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                  className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                   disabled={isLoading}
                 >
-                  Get Google JWT
+                  Authenticate with Google
                 </button>
               </div>
             )}
@@ -273,9 +277,8 @@ const Login = () => {
                   setIsLogin(!isLogin);
                   setErrors({});
                   setFormData({
-                    userName: '',
-                    password: '',
-                    jwt: ''
+                    userName: formData.userName,
+                    password: ''
                   });
                 }}
                 className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
