@@ -88,7 +88,6 @@ const Login = () => {
           : { userName: formData.userName };
       }
 
-      // Create axios instance with proper CORS configuration
       const api = axios.create({
         baseURL: BASE_URL,
         headers: {
